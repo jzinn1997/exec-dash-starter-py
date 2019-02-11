@@ -2,6 +2,19 @@
 
 # TODO: import some modules and packages here
 
+import os
+import pandas
+
+def to_usd(my_price):
+    return "${0:,.2f}".format(my_price) 
+
+#INPUTS
+
+csv_filename = "sales-201803.csv"
+csv_filepath = os.path.join(os.path.dirname(__file__), "data", csv_filename)
+csv_data = pandas.read_csv(csv_filepath)
+
+
 # TODO: write some Python code here to produce the desired functionality...
 
 print("-----------------------")
