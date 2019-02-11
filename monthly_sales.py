@@ -14,8 +14,27 @@ csv_filename = "sales-201803.csv"
 csv_filepath = os.path.join(os.path.dirname(__file__), "data", csv_filename)
 csv_data = pandas.read_csv(csv_filepath)
 
+#print(type(cvs_data))
+#print(list(csv_data.columns))
 
-# TODO: write some Python code here to produce the desired functionality...
+#CALCULATIONS
+
+monthly_total = csv_data["sales price"].sum()
+
+products_sold = []
+
+breakpoint()
+
+top_sellers = [
+    {"rank": 1, "name": "Button-Down Shirt", "monthly_sales": 6960.35},
+    {"rank": 2, "name": "Super Soft Hoodie", "monthly_sales": 1875.00},
+]
+# get above information from csv_data
+
+
+
+# OUTPUTS
+
 
 print("-----------------------")
 print("MONTH: March 2018")
