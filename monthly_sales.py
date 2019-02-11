@@ -10,20 +10,29 @@ def to_usd(my_price):
 
 #INPUTS
 
-csv_filename = "sales-201803.csv"
+csv_filename = "sales-201803.csv" #must allow user to specify
 csv_filepath = os.path.join(os.path.dirname(__file__), "data", csv_filename)
 csv_data = pandas.read_csv(csv_filepath)
 
 #print(type(cvs_data))
 #print(list(csv_data.columns))
 
+#
 #CALCULATIONS
+#
 
 monthly_total = csv_data["sales price"].sum()
 
-products_sold = []
+product_totals = csv_data.groupby(["product"]).sum()
+product_totals = product_totals.sort_values("sales price", ascending=False)
 
-breakpoint()
+#products_sold = csv_data["product"].unique()
+#products_sold = products_sold.tolist()
+
+
+#for product_name in products_sold:
+ #   print(product_name)
+    # breakpoint()
 
 top_sellers = [
     {"rank": 1, "name": "Button-Down Shirt", "monthly_sales": 6960.35},
@@ -43,13 +52,11 @@ print("-----------------------")
 print("CRUNCHING THE DATA...")
 
 print("-----------------------")
-print("TOTAL MONTHLY SALES: $12,000.71")
+print(f"TOTAL MONTHLY SALES: {to_usd(monthly_total)}")
 
 print("-----------------------")
 print("TOP SELLING PRODUCTS:")
-print("  1) Button-Down Shirt: $6,960.35")
-print("  2) Super Soft Hoodie: $1,875.00")
-print("  3) etc.")
-
+for d in top_sellers:
+    print("  " + str(d["rank"]) + ") " + d["name"] + ": " + to_usd(d["monthly_sales"]))
 print("-----------------------")
 print("VISUALIZING THE DATA...")
