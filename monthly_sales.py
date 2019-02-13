@@ -63,7 +63,7 @@ print("VISUALIZING THE DATA...")
 
 data = [
     graph_objs.Bar(
-        x=['giraffes', 'orangutans', 'monkeys'],
+        x=['mint chocolate chip', 'cookie dough', 'coffee'],
         y=[20, 14, 23]
     )
 ]
@@ -71,7 +71,7 @@ data = [
 
 chart_options = {
     "data": data,
-    "layout": graph_objs.Layout(title="hello world")
+    "layout": graph_objs.Layout(title="favorite ice cream flavors")
 }
 plotly.offline.plot(chart_options, auto_open=True)
 
