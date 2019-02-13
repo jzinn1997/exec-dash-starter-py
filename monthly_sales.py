@@ -61,7 +61,7 @@ print(product_totals)
 #    monthly_sales = 10
 #    top_sellers.append({"rank": rank, "name": product_name, "monthly_sales": monthly_sales})
 #    rank = rank + 1
-top sellers = []
+top_sellers = []
 
 rank = 1
 
