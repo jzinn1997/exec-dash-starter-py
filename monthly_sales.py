@@ -29,6 +29,16 @@ product_totals = product_totals.sort_values("sales price", ascending=False)
 #products_sold = csv_data["product"].unique()
 #products_sold = products_sold.tolist()
 
+print(product_totals)
+#                     unit price  units sold  sales price
+#product
+#Button-Down Shirt     1821.40         107      6960.35
+#Super Soft Hoodie     1350.00          25      1875.00
+#Khaki Pants           1157.00          18      1602.00
+#Vintage Logo Tee       398.75          59       941.05
+#Brown Boots            250.00           2       250.00
+#Sticker Pack           108.00          48       216.00
+#Baseball Cap           156.31           7       156.31
 
 #for product_name in products_sold:
  #   print(product_name)
@@ -60,3 +70,7 @@ for d in top_sellers:
     print("  " + str(d["rank"]) + ") " + d["name"] + ": " + to_usd(d["monthly_sales"]))
 print("-----------------------")
 print("VISUALIZING THE DATA...")
+
+
+#need to display bar chart of top sellers
+
