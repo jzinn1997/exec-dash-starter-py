@@ -2,6 +2,9 @@
 
 import os
 import pandas
+import plotly
+from plotly import graph_objs
+
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price) 
@@ -13,7 +16,6 @@ def to_usd(my_price):
 csv_filename = "sales-201803.csv" #must allow user to specify
 csv_filepath = os.path.join(os.path.dirname(__file__), "data", csv_filename)
 csv_data = pandas.read_csv(csv_filepath)
-
 
 
 #
@@ -58,4 +60,20 @@ print("VISUALIZING THE DATA...")
 
 
 #need to display bar chart of top sellers
+
+data = [
+    graph_objs.Bar(
+        x=['giraffes', 'orangutans', 'monkeys'],
+        y=[20, 14, 23]
+    )
+]
+
+
+chart_options = {
+    "data": data,
+    "layout": graph_objs.Layout(title="hello world")
+}
+plotly.offline.plot(chart_options, auto_open=True)
+
+
 
