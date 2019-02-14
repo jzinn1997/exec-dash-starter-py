@@ -13,10 +13,11 @@ def to_usd(my_price):
 #INPUTS
 #
 
-csv_filename = "sales-201803.csv" #must allow user to specify
+csv_filename = "sales-201803.csv" #TODO: must allow user to specify
 csv_filepath = os.path.join(os.path.dirname(__file__), "data", csv_filename)
 csv_data = pandas.read_csv(csv_filepath)
 
+#original formulas found on prof rossetti github
 
 #
 #CALCULATIONS
@@ -59,16 +60,20 @@ print("-----------------------")
 print("VISUALIZING THE DATA...")
 
 
-#need to display bar chart of top sellers
+chart_filename = "top-sellers-201803.html" 
+chart_filepath = os.path.join(os.path.dirname(__file__), "reports", chart_filename)
 
 #original code founded here: https://plot.ly/python/bar-charts/
 
 data = [
     graph_objs.Bar(
-        x=['mint chocolate chip', 'cookie dough', 'coffee'],
-        y=[20, 14, 23]
+        x= [20, 14, 23],
+        y= ['mint chocolate chip', 'cookie dough', 'coffee']
+        orientation= "h" #horizontal bar graph
     )
 ]
+
+chart_title = "Top Selling Products (February 2019)" # TODO: get month and year
 
 #orginal code founded here: https://plot.ly/python/getting-started/
 
