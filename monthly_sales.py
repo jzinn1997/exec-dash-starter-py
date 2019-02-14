@@ -63,13 +63,25 @@ print("VISUALIZING THE DATA...")
 chart_filename = "top-sellers-201803.html" 
 chart_filepath = os.path.join(os.path.dirname(__file__), "reports", chart_filename)
 
+#image_filename = "top-sellers-201803.png" # TODO: parse selected csv file name
+#image_filepath = os.path.join(os.path.dirname(__file__), "images", image_filename) # looks like the image just gets downloaded
+#image_filename = "top-sellers-201803" # TODO: parse selected csv file name
+
+
+
 #original code founded here: https://plot.ly/python/bar-charts/
+#breakpoint()
+sorted_product_sales = [d["monthly_sales"] for d in top_sellers]   
+sorted_product_names = [d["name"] for d in top_sellers]
+
+x=sorted_product_sales
+y=sorted_product_names
 
 data = [
     graph_objs.Bar(
-        x= [20, 14, 23],
-        y= ['mint chocolate chip', 'cookie dough', 'coffee']
-        orientation= "h" #horizontal bar graph
+        x=x,
+        y=y,
+        orientation = 'h' 
     )
 ]
 
@@ -77,12 +89,28 @@ chart_title = "Top Selling Products (February 2019)" # TODO: get month and year
 
 #orginal code founded here: https://plot.ly/python/getting-started/
 
-chart_options = {
-    "data": data,
-    "layout": graph_objs.Layout(title="favorite ice cream flavors")
-}
-plotly.offline.plot(chart_options, auto_open=True)
+layout = graph_objs.Layout(
+    title=chart_title,
+    yaxis=dict(autorange="reversed") # make sure top sellers are on the top
+)
+
+chart_options = {"data": data, "layout": layout}
+
+#chart_options = {
+#    "data": data,
+#    "layout": graph_objs.Layout(title="favorite ice cream flavors")
+#}
+#plotly.offline.plot(chart_options, auto_open=True)
 
 
+plotly.offline.plot(
+    chart_options,
+    filename=chart_filepath,
+    #image="png",
+    #image_filename=image_filename, #specify filepath???????
+    auto_open=True
+)
 
+print("-----------------------")
+print("SEE: " + chart_filepath)
 
