@@ -116,6 +116,21 @@ print("VISUALIZING THE DATA...")
 
 chart_title = "Top Selling Products (February 2019)" # TODO: get month and year
 
+sorted_names = []
+sorted_sales = []
+
+for d in top_sellers:
+    sorted_names.append(d["name"])
+    sorted_sales.append(d["monthly_sales"])
+
+plt.bar(sorted_names, sorted_sales)
+plt.title(chart_title)
+plt.xlabel("Product")
+plt.ylabel("Monthly Sales (USD)")
+plt.show()
+
+
+
 #orginal code founded here: https://plot.ly/python/getting-started/
 
 # layout = graph_objs.Layout(
