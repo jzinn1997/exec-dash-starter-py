@@ -96,11 +96,11 @@ layout = graph_objs.Layout(
 
 chart_options = {"data": data, "layout": layout}
 
-#chart_options = {
-#    "data": data,
-#    "layout": graph_objs.Layout(title="favorite ice cream flavors")
-#}
-#plotly.offline.plot(chart_options, auto_open=True)
+chart_options = {
+    "data": data,
+    "layout": graph_objs.Layout(title="Top Selling Products (February 2019)")
+}
+plotly.offline.plot(chart_options, auto_open=True)
 
 
 plotly.offline.plot(
