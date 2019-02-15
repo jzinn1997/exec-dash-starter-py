@@ -3,7 +3,10 @@
 import operator
 import os
 import pandas
+
 import matplotlib.pyplot as plt
+
+import matplotlib.ticker as ticker
 
 
 def to_usd(my_price):
@@ -127,6 +130,11 @@ for d in top_sellers:
 
 sorted_names.reverse()
 sorted_sales.reverse()
+
+#customize the graph - original code from professor rossetti
+fig, ax = plt.subplots()
+usd_formatter = ticker.FormatStrFormatter('$%1.0f')
+ax.xaxis.set_major_formatter(usd_formatter)
 
 plt.barh(sorted_names, sorted_sales)
 plt.title(chart_title)
