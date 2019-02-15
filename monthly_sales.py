@@ -1,5 +1,6 @@
 # monthly_sales.py
 
+import operator
 import os
 import pandas
 import matplotlib.pyplot as plt
@@ -44,24 +45,24 @@ unique_product_names = product_names.unique()
 
 unique_product_names = unique_product_names.tolist()
 
+#top_sellers = [
+#    {"name": "Button-Down Shirt", "monthly_sales": 6960.34},
+#    {"name": "Super Soft Hoodie", "monthly_sales": 1875.0},
+#    {"name": "Khaki Pants", "monthly_sales": 1602.0},
+#    {"name": "Vintage Logo Tee", "monthly_sales": 941.05},
+#    {"name": "Brown Boots", "monthly_sales": 250.0},
+#    {"name": "Sticker Pack", "monthly_sales": 216.0},
+#    {"name": "Baseball Cap", "monthly_sales": 156.31}   
+#]
 
-
-top_sellers = [
-    {"name": "Button-Down Shirt", "monthly_sales": 6960.34},
-    {"name": "Super Soft Hoodie", "monthly_sales": 1875.0},
-    {"name": "Khaki Pants", "monthly_sales": 1602.0},
-    {"name": "Vintage Logo Tee", "monthly_sales": 941.05},
-    {"name": "Brown Boots", "monthly_sales": 250.0},
-    {"name": "Sticker Pack", "monthly_sales": 216.0},
-    {"name": "Baseball Cap", "monthly_sales": 156.31}   
-]
-
+top_sellers = []
 
 for product_name in unique_product_names:
-    product_monthly_sales = 100.00 # TODO: calculate this for real!
-    # breakpoint()
+    matching_rows = csv_data[csv_data["product"] == product_name]
+    product_monthly_sales = matching_rows["sales price"].sum()
     top_sellers.append({"name": product_name, "monthly_sales": product_monthly_sales})
 
+top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reverse=True)
 
 
 #
@@ -123,10 +124,17 @@ for d in top_sellers:
     sorted_names.append(d["name"])
     sorted_sales.append(d["monthly_sales"])
 
-plt.bar(sorted_names, sorted_sales)
+
+sorted_names.reverse()
+sorted_sales.reserve()
+
+plt.barh(sorted_names, sorted_sales)
 plt.title(chart_title)
 plt.xlabel("Product")
 plt.ylabel("Monthly Sales (USD)")
+
+#trying to fix labels getting cut off
+plt.tight_layout()
 plt.show()
 
 
