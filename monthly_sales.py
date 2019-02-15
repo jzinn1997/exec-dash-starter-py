@@ -3,9 +3,11 @@
 import operator
 import os
 import pandas
+import csv
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+
 
 #function from https://github.com/s2t2/shopping-cart-screencast/blob/30c2a2873a796b8766e9b9ae57a2764725ccc793/shopping_cart.py#L56-L59
 def to_usd(my_price):
@@ -15,10 +17,24 @@ def to_usd(my_price):
 #INPUTS
 #
 
-csv_filename = "sales-201803.csv" #TODO: must allow user to specify
+path = os.path.join("data")
+directory = os.listdir(path)
 
-#referenced https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/modules/os.md#file-operations
-csv_filepath = os.path.join(os.path.dirname(__file__), "data", csv_filename)
+#used slack channel https://georgetown-opim-py.slack.com/messages/DFA4T5HGB/ (@sarahmandi)
+chosen_file = []
+while True:
+    file_name = input("Please specify a file name: ")
+    if file_name in directory:
+        chosen_file.append(file_name)
+        break
+    else:
+        print("Sorry! This file name was not found.") 
+        continue
+
+csv_filename = file_name 
+csv_filepath = os.path.join("data", csv_filename)
+
+
 
 #referenced https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/packages/pandas.md
 csv_data = pandas.read_csv(csv_filepath)
@@ -49,8 +65,19 @@ top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reve
 # OUTPUTS
 #
 
+#dates adapted from: https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/pandas_explore.py
+def month_lookup(month):
+	year_month={'01':'January','02':'February','03':'March','04':'April',
+	'05':'May','06':'June','07':'July','08':'August','09':'September','10':'October',
+	'11':'November', '12':'December'}
+	return year_month[month]
+
+month = month_lookup(csv_filename[-6:-4])
+year = int(csv_filename[6:10]) 
+
 print("-----------------------")
-print("MONTH: February 2019") #TODO: Get month and year!!
+print(("MONTH: ") + str(month) + (" ")+ str(year))
+
 
 print("-----------------------")
 print("CRUNCHING THE DATA...")
@@ -70,7 +97,7 @@ print("-----------------------")
 print("VISUALIZING THE DATA...")
 
 
-chart_title = "Top Selling Products (February 2019)" # TODO: get month and year
+chart_title = ("Top Selling Products (")+ str(month) + (" ") + str(year) + (")")
 
 sorted_names = []
 sorted_sales = []
@@ -83,7 +110,8 @@ for d in top_sellers:
 sorted_names.reverse()
 sorted_sales.reverse()
 
-#customize the graph - original code from professor rossetti
+#customize the graph 
+#adapted from https://stackoverflow.com/questions/38152356/matplotlib-dollar-sign-with-thousands-comma-tick-labels
 fig, ax = plt.subplots()
 usd_formatter = ticker.FormatStrFormatter('$%1.0f')
 ax.xaxis.set_major_formatter(usd_formatter)
@@ -91,8 +119,8 @@ ax.xaxis.set_major_formatter(usd_formatter)
 #nuts and bolts of the chart
 plt.barh(sorted_names, sorted_sales)
 plt.title(chart_title)
-plt.xlabel("Product")
-plt.ylabel("Monthly Sales (USD)")
+plt.ylabel("Product")
+plt.xlabel("Monthly Sales (USD)")
 
 #fixes labels getting cut off
 plt.tight_layout()
