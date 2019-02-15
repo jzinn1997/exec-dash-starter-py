@@ -126,7 +126,7 @@ for d in top_sellers:
 
 
 sorted_names.reverse()
-sorted_sales.reserve()
+sorted_sales.reverse()
 
 plt.barh(sorted_names, sorted_sales)
 plt.title(chart_title)
