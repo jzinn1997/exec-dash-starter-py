@@ -17,10 +17,11 @@ def to_usd(my_price):
 #INPUTS
 #
 
+
+#adapted from https://github.com/carolinefeeney/exec-dash-project/blob/master/monthly_sales.py#L144
 path = os.path.join("data")
 directory = os.listdir(path)
 
-#used slack channel https://georgetown-opim-py.slack.com/messages/DFA4T5HGB/ (@sarahmandi)
 chosen_file = []
 while True:
     file_name = input("Please specify a file name: ")
@@ -34,8 +35,6 @@ while True:
 csv_filename = file_name 
 csv_filepath = os.path.join("data", csv_filename)
 
-
-
 #referenced https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/packages/pandas.md
 csv_data = pandas.read_csv(csv_filepath)
 
@@ -44,6 +43,7 @@ csv_data = pandas.read_csv(csv_filepath)
 #
 
 #setting variables
+#referenced: https://github.com/s2t2/exec-dash-starter-py/blob/master/monthly_sales_alt.py
 
 monthly_total = csv_data["sales price"].sum()
 
@@ -78,7 +78,6 @@ year = int(csv_filename[6:10])
 print("-----------------------")
 print(("MONTH: ") + str(month) + (" ")+ str(year))
 
-
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
@@ -86,8 +85,9 @@ print("-----------------------")
 print(f"TOTAL MONTHLY SALES: {to_usd(monthly_total)}")
 
 print("-----------------------")
-print("TOP SELLING PRODUCTS:")
+print("TOP SELLING PRODUCTS: ")
 
+#referenced: https://github.com/s2t2/exec-dash-starter-py/blob/master/monthly_sales_alt.py
 rank = 1
 for d in top_sellers:
     print("  " + str(rank) + ") " + d["name"] + ": " + to_usd(d["monthly_sales"]))
@@ -107,6 +107,7 @@ for d in top_sellers:
     sorted_sales.append(d["monthly_sales"])
 
 #display top-sellers at top
+#referenced: https://georgetown-opim-py.slack.com/messages/CFZDKNKA4/
 sorted_names.reverse()
 sorted_sales.reverse()
 
@@ -123,6 +124,7 @@ plt.ylabel("Product")
 plt.xlabel("Monthly Sales (USD)")
 
 #fixes labels getting cut off
+#referenced: https://georgetown-opim-py.slack.com/messages/CFZDKNKA4/
 plt.tight_layout()
 plt.show()
 
