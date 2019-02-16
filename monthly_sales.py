@@ -117,11 +117,16 @@ fig, ax = plt.subplots()
 usd_formatter = ticker.FormatStrFormatter('$%1.0f')
 ax.xaxis.set_major_formatter(usd_formatter)
 
+
 #nuts and bolts of the chart
 plt.barh(sorted_names, sorted_sales)
 plt.title(chart_title)
 plt.ylabel("Product")
-plt.xlabel("Monthly Sales (USD)")
+plt.xlabel("Sales (USD)")
+
+#labels adapted from https://stackoverflow.com/questions/30228069/how-to-display-the-value-of-the-bar-on-each-bar-with-pyplot-barh
+for i, v in enumerate(sorted_sales):
+    ax.text(v + 3, i + .25, str(to_usd(v)), color='blue', fontweight='normal')
 
 #fixes labels getting cut off
 #referenced: https://georgetown-opim-py.slack.com/messages/CFZDKNKA4/
